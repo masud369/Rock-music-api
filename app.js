@@ -10,7 +10,9 @@ document.getElementById("search").addEventListener("click", () => {
             // console.log(info.data);
             const infos = res.data;
             infos.forEach(element => {
+                console.log(element);
                 console.log(element.artist.name);
+                console.log(element.artist.preview);
                 // titleNname(element.album.title, element.artist.name);
                 const parentDiv = document.getElementById("parent");
                 // parentDiv.innerHTML = "";
@@ -22,6 +24,9 @@ document.getElementById("search").addEventListener("click", () => {
                 newDiv.innerHTML = `<div class="col-md-9">
                     <h3 class="lyrics-name">${element.album.title}</h3>
                         <p class="author lead">Album by <span>${element.artist.name} Out</span></p>
+                        <audio controls>
+                             <source src="${element.preview}" type="audio/mpeg">
+                        </audio>
                     </div>
                     <div class="col-md-3 text-md-right text-center">
                         <button class="btn btn-success">Get Lyrics</button>
@@ -31,8 +36,8 @@ document.getElementById("search").addEventListener("click", () => {
             })
             document.getElementById("song-search").value = "";
 
-            });
         });
+});
     // const callData = (info) => {
     //     console.log(info.data);
     //     const infos = info.data;
