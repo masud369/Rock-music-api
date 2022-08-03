@@ -9,13 +9,14 @@ document.getElementById("search").addEventListener("click", () => {
             // callData(res);
             // console.log(info.data);
             const infos = res.data;
+            const parentDiv = document.getElementById("parent");
+                parentDiv.innerHTML = "";
             infos.forEach(element => {
                 console.log(element);
                 console.log(element.artist.name);
                 console.log(element.artist.preview);
                 // titleNname(element.album.title, element.artist.name);
-                const parentDiv = document.getElementById("parent");
-                // parentDiv.innerHTML = "";
+                
                 const newDiv = document.createElement("div");
                 // newDiv.innerHTML = " ";
                 newDiv.className = "single-result row align-items-center my-3 p-3 ";
@@ -29,7 +30,7 @@ document.getElementById("search").addEventListener("click", () => {
                         </audio>
                     </div>
                     <div class="col-md-3 text-md-right text-center">
-                        <button class="btn btn-success">Get Lyrics</button>
+                        <button onclick="callLyric('${element.artist.name}' ,'${element.album.title}')" class="btn btn-success">Get Lyrics</button>
                     </div>`;
                 parentDiv.appendChild(newDiv);
 
@@ -38,15 +39,16 @@ document.getElementById("search").addEventListener("click", () => {
 
         });
 });
-    // const callData = (info) => {
-    //     console.log(info.data);
-    //     const infos = info.data;
-    //     infos.forEach(element => {
-    //         console.log(element.artist.name);
-    //         titleNname(element.album.title, element.artist.name);
-    //     });
-    // }
+    const callLyric = (artist,title) => {
+        fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`)
+        .then(res=>res.json())
+        .then((res)=>{showLyrics(res.lyrics)})
+        // console.log(artist );
+    }
 
+    const showLyrics = (lyric)=>{
+        document.getElementById("show-lyric").innerText = lyric;
+    }
 
 
     // const titleNname = (title, name) => {
